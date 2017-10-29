@@ -1,0 +1,17 @@
+<div class="book flex" *ngFor='let book of _booksService.books;index as index'>
+    <div class="view flex">
+        <img src="../../assets/images/book.png" alt="">
+        <h3 class="title">{{book.title}}</h3>
+    </div>
+    <p *ngIf="_booksService.books[index] == _booksService.books[whichBook] && showDetails">
+        Was writen by {{_booksService.books[index].author.givenName | json}} 
+        and it has  {{_booksService.books[index].chapters.length | json}} chapters
+    </p>
+    <div class="buttons flex">
+        <input type="image" src="../../assets/images/View.png" alt="" (click)='details(index)'>
+        <input type="image" src="../../assets/images/Edit.png" alt="" (click)='sendBookIndex(index)'>
+        <input type="image" src="../../assets/images/Delete.png" alt="" (click)='delete(index)'>
+    </div>
+    
+</div>
+

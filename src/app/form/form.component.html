@@ -1,0 +1,147 @@
+<div class="panel panel-primary col-md-8 col-md-offset-2">
+    <div class="panel-heading">
+        BookMark
+    </div>
+
+  <div class="panel-body">
+    <div class="col-md-offset-1">
+        <button class="btn btn-primary" (click)='addBook(true)' *ngIf='savingTime'>Add a book</button>
+        <button class="btn btn-primary" (click)="testData()" *ngIf='formIsVisible && savingTime'>Test Data</button>
+    </div>
+    
+    <form class="form-horizontal col-md-offset-2"
+          *ngIf=(formIsVisible) 
+          novalidate
+          (ngSubmit)="save()"
+          [formGroup]="bookForm">
+          <fieldset>
+            <div class="form-group">
+              <!-- test data button -->
+              <!-- book title -->
+              <div class="col-md-10 form-group"
+                [ngClass]="{'has-error': (bookForm.get('title').touched ||
+                                          bookForm.get('title').dirty) &&
+                                          !bookForm.get('title').valid }">
+                <label for="title">Title</label>
+                <input type="text" 
+                        class="form-control" 
+                        placeholder="Title (required)"
+                        id="title"
+                        formControlName='title'>
+                <span class="help-block" *ngIf="(bookForm.get('title').touched ||
+                                                 bookForm.get('title').dirty) &&
+                                                 bookForm.get('title').errors">
+                  <span>Please enter book title.</span>
+                </span>
+              </div>
+              <!-- author selection box -->
+              <div class="col-md-10 form-group">
+                <label for="author">Author</label>
+                <select id="author" formControlName='author'>
+                  <option value="{{author.id}}" *ngFor="let author of _authors.authors">{{author.surName + " " +author.givenName}}</option>
+                </select>
+                <div *ngFor='let authorWriter of _authors.authors'>
+                  <p *ngIf='bookForm.value.author == authorWriter.id'>
+                    <span>Born: {{authorWriter.dateOfBirth | date:'dd MMM y'}}</span><br />
+                    <span>Trivia: {{authorWriter.bio}}</span>
+                  </p>
+                </div>
+              </div>
+              <!-- ISBN -->
+              <div class="col-md-10 form-group">
+                <label for="ISBN">ISBN</label>
+                <input type="text" 
+                      class="form-control" 
+                      placeholder="ISBN (required)"
+                      id="ISBN"
+                      formControlName='ISBN'>
+              </div>
+              <!-- publisher -->
+              <div class="col-md-10 form-group">
+                <label for="publisher">Publisher</label>
+                <input type="text" 
+                      class="form-control" 
+                      placeholder="Publisher"
+                      id="publisher"
+                      formControlName='publisher'>
+              </div>
+              <!-- edition -->
+              <div class="col-md-10 form-group">
+                <label for="edition">Edition</label>
+                <input type="text" 
+                      class="form-control" 
+                      placeholder="Edition"
+                      id="edition"
+                      formControlName='edition'>
+              </div>
+              <!-- publishing date -->
+              <div class="col-md-10 form-group">
+                <label for="publishingDate">Publishing Date</label>
+                <input type="datetime" 
+                      class="form-control"
+                      id="publishingDate"
+                      formControlName='publishingDate'>
+              </div>
+            </div>
+
+            <h4>Chapters</h4>
+            <button class="btn btn-primary"
+            type="button"
+            *ngIf='formIsVisible'
+            [disabled]="!chapters.valid"
+            (click)="addChapter()">
+        Add Chapter
+        </button>
+            <div formArrayName="chapters" *ngFor="let chapter of chapters.controls;index as index">
+              <div [formGroupName]="index" class="chapters-group">
+                <div class="col-md-6 form-group">
+                  <label attr.for="{{'chapter'+index}}">Chapter title</label>
+                  <input type="text"
+                         class="form-control"
+                         id="{{'chapter'+index}}"
+                         placeholder="Chapter title (required)"
+                         formControlName="title">
+                </div>
+                <div class="col-md-3 form-group">
+                  <label attr.for="{{'startPage'+index}}">Start Page</label>
+                  <input type="number"
+                          class="form-control"
+                          id="{{'startPage'+index}}"
+                          formControlName="startPage">
+                </div>
+                <div class="col-md-3 form-group">
+                  <label attr.for="{{'numberOfPages'+index}}">Number of pages</label>
+                  <input type="number"
+                          class="form-control"
+                          id="{{'numberOfPages'+index}}"
+                          formControlName="numberOfPages">
+                </div>
+              </div>
+            </div>
+          </fieldset>
+          
+    </form>
+    <div class="col-md-offset-6">
+        <button class="btn btn-primary" 
+              type="submit"
+              (click)='save(false)'
+              *ngIf='formIsVisible  && savingTime'
+              [disabled]="!bookForm.valid">
+          Save
+          </button>
+          <button class="btn btn-primary"
+                  (click)='edit()'
+                  *ngIf='formIsVisible && !savingTime'
+                  [disabled]="!bookForm.valid">
+                  Save Changes
+          </button>
+        <button class="btn btn-warning" (click)='reset(true)' *ngIf='formIsVisible'>Clear data</button>
+        <button class="btn btn-danger" (click)='reset(false)' *ngIf='formIsVisible'>Cancel</button>
+    </div>
+    
+  </div>
+</div>
+<!-- <br/> Value: {{bookForm.value | json}} -->
+
+<app-books (edtiThisBook)="patchValues($event)"></app-books>
+
