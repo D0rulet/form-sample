@@ -4,8 +4,8 @@
         <h3 class="title">{{book.title}}</h3>
     </div>
     <p *ngIf="_booksService.books[index] == _booksService.books[whichBook] && showDetails">
-        Was writen by {{_booksService.books[index].author.givenName | json}} 
-        and it has  {{_booksService.books[index].chapters.length | json}} chapters
+        Was writen by {{_booksService.books[index].author.givenName}} 
+        and it has  {{_booksService.books[index].chapters.length}} chapters
     </p>
     <div class="buttons flex">
         <input type="image" src="../../assets/images/View.png" alt="" (click)='details(index)'>

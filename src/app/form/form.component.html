@@ -38,6 +38,7 @@
               <div class="col-md-10 form-group">
                 <label for="author">Author</label>
                 <select id="author" formControlName='author'>
+                  <option value="">Author (required)</option>
                   <option value="{{author.id}}" *ngFor="let author of _authors.authors">{{author.surName + " " +author.givenName}}</option>
                 </select>
                 <div *ngFor='let authorWriter of _authors.authors'>
