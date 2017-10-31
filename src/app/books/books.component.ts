@@ -6,23 +6,21 @@ import { BooksService } from '../services/books.service';
   templateUrl: './books.component.html',
   styleUrls: ['./books.component.css']
 })
-export class BooksComponent implements OnInit {
+export class BooksComponent {
   _booksService: BooksService;
   showDetails = false;
   whichBook;
   constructor(_booksService: BooksService) { this._booksService = _booksService; }
+  // Send an event to the form with the index of the book to be edited
   @Output() edtiThisBook = new EventEmitter<number>();
 
   sendBookIndex(index) {
     this.edtiThisBook.emit(index);
   }
 
-  ngOnInit() {
-  }
   details(index) {
     this.whichBook = index;
     this.showDetails = !this.showDetails;
-    console.log(index);
   }
   delete(index) {
     this.whichBook = index;

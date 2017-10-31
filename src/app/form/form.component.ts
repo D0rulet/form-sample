@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, ValidatorFn, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 
 import { Book } from './book';
 import { BooksService } from '../services/books.service';
@@ -27,7 +27,7 @@ export class FormComponent implements OnInit {
       chapters: this._formBuilder.array([ this.buildChapter() ])
     });
   }
-
+  // we separate the chapters from the bookForm group in order to build the required structure for a FormArray
   buildChapter(): FormGroup {
     return this._formBuilder.group({
       title: ['', Validators.required],
@@ -40,6 +40,9 @@ export class FormComponent implements OnInit {
     this.chapters.push(this.buildChapter());
   }
 
+  // here we receive the index of the book we need to edit from the event in the books component
+  // we reset the form, do some show buttons management, then try to show some values
+  // those pesky chapters need more attention
   patchValues(param) {
     this.bookIndex = param;
     this.resetForm();
@@ -57,11 +60,15 @@ export class FormComponent implements OnInit {
     // this.bookForm.setControl('chapters', this._formBuilder.array(this._authors.books[param].chapters || []));
   }
 
+  // save button takes all data from the form, assigns it to an object
+  // we patch that object with author details
+  // push it into the array of books
   save() {
     this.formIsVisible = false;
     const newBook = Object.assign({}, this.book, this.bookForm.value);
-    console.log(newBook.author);
     newBook.author = this._authors.authors.find(function(elem) {
+      // here we let type coercion do its thing
+      // thank you js for letting me compare a string with a number
       // tslint:disable-next-line:triple-equals
       return elem.id == newBook.author;
     });
@@ -72,15 +79,16 @@ export class FormComponent implements OnInit {
     this.formIsVisible = true;
     this.savingTime = true;
   }
-
+  // pressing edit button we make a new object
+  // the author details are picked up from the authors json
+  // the new formed object is assigned to its proper position
+  // in a conversation with an API we would use PUT to update data on the server -> way more efficient
   edit() {
     const newBook = Object.assign({}, this.book, this.bookForm.value);
-    console.log(newBook.author);
     newBook.author = this._authors.authors.find(function(elem) {
       // tslint:disable-next-line:triple-equals
       return elem.id == newBook.author;
     });
-    console.log(newBook, this._authors.books[this.bookIndex]);
     this._authors.books[this.bookIndex] = newBook;
     this.resetForm();
   }
@@ -90,7 +98,7 @@ export class FormComponent implements OnInit {
     this.savingTime = true;
     this.resetForm();
   }
-
+  // cast the chapters form group to the FormArray type
   get chapters(): FormArray {
     return <FormArray>this.bookForm.get('chapters');
   }
@@ -128,7 +136,7 @@ export class FormComponent implements OnInit {
 
   }
 
-  resetForm(){
+  resetForm() {
     this.bookForm.reset();
   }
 }
