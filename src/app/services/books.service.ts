@@ -5,11 +5,11 @@ export class BooksService {
   books = [
     {
       'id': 1,
-      'title': 'All about something',
+      'title': 'Korina',
       'author': {
         'id': 1,
-        'givenName': 'Dan Victor',
-        'surName': 'Rusu',
+        'givenName': 'Alin',
+        'surName': 'Preda',
         'dateOfBirth': '1970-01-01T00:00Z',
         'bio': 'Something about this author. Bla bla bla...'
       },
@@ -47,17 +47,17 @@ export class BooksService {
     },
     {
       'id': 2,
-      'title': 'The art of being Laszlo',
+      'title': 'The art of truth',
       'author': {
         'id': 2,
-        'givenName': 'Laszlo',
-        'surName': 'Toth',
+        'givenName': 'Don',
+        'surName': 'Emilio',
         'dateOfBirth': '1970-01-01T00:00Z',
         'bio': 'Something about this author. Bla bla bla...'
       },
       'publisher': 'You',
       'edition': 'First',
-      'ISBN': '000000000000000',
+      'ISBN': '000000000001111',
       'publishingDate': '1992-01-01T00:00Z',
       'chapters': [
         {
@@ -84,17 +84,17 @@ export class BooksService {
     },
     {
       'id': 3,
-      'title': '10 Things You Really Don\'t Need To Know!!!!',
+      'title': 'Carusso',
       'author': {
         'id': 3,
-        'givenName': 'Eelco',
-        'surName': 'Osseweijer',
+        'givenName': 'Ozun',
+        'surName': 'Nuzo',
         'dateOfBirth': '1970-01-01T00:00Z',
         'bio': 'Something about this author. Bla bla bla...'
       },
       'publisher': 'Us',
-      'edition': 'First',
-      'ISBN': '000000000000000',
+      'edition': 'Third',
+      'ISBN': '000044444440000',
       'publishingDate': '1993-01-01T00:00Z',
       'chapters': [
         {
@@ -124,22 +124,22 @@ export class BooksService {
   authors = [
     {
       'id': 1,
-      'givenName': 'Dan Victor',
-      'surName': 'Rusu',
+      'givenName': 'Vlad',
+      'surName': 'Alin',
       'dateOfBirth': '1970-01-01T00:00Z',
       'bio': 'Something about this author. Blablabla...'
     },
     {
       'id': 2,
-      'givenName': 'Laszlo',
-      'surName': 'Toth',
+      'givenName': 'Filip',
+      'surName': 'Philips',
       'dateOfBirth': '1970-01-01T00:00Z',
       'bio': 'Data actually changes'
     },
     {
       'id': 3,
-      'givenName': 'Eelco',
-      'surName': 'Osseweijer',
+      'givenName': 'Doru',
+      'surName': 'Connaiseur',
       'dateOfBirth': '1970-01-01T00:00Z',
       'bio': 'Different every time'
     }
